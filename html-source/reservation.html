@@ -1,7 +1,10 @@
+<!--TODO : Comment the code below !! + indent-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.1/dist/css/datepicker-bs5.min.css"> <!--* CSS for the datePicker-->
+      <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css"> <!--* CSS for notie package (doc: https://github.com/jaredreich/notie)-->
 
       <style>
         .my-footer{
@@ -15,14 +18,14 @@
         .room-image{
           max-width: 50%;
         }
-        /* p{
-
-        } */
+        .notie-container {
+        box-shadow: none;
+        }
       </style>
 
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrint-to-fit=nosss ">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>My nice page</title>
   </head>
 
@@ -57,10 +60,6 @@
               <a class="nav-link" href="contact.html" tabindex="-1" aria-disabled="true">Contact Page</a>
             </li>
           </ul>
-        <!-- <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> -->
         </div>
       </div>
     </nav>
@@ -68,33 +67,39 @@
     <div class="container">
       <div class="row">
       <div class="col-md-3"></div> <!--? Sert à centrer le form (col divise le block du dessus en 12 sachant que mon form prend 6 cases, si je décale ces 6 cases sur la droite de 3 cases, je me retrouve au centre)-->
-      <div class="col-md-6">
-        <h1 class="mt-5" >Search for Availability</h1>
+        <div class="col-md-6">
+          <h1 class="mt-5" >Search for Availability</h1>
 
-        <form action="reservation.html" method="get">
-
-          <div class="row">
-            <div class="col mb-3">
-              <label for="start_date" class="form-label">starting date</label>
-              <input type="date" class="form-control" id="start_date" name="start_date" aria-describedby="startDateHelp">
-              <div id="startDateHelp" class="form-text">Enter your starting date in the form of YYYY-MM-DD.</div>
+          <form action="reservation.html" method="get" novalidate class="needs-validation">
+            <div class="form-row mb-5">
+              <div class="col">
+                <!--*Using the documentation from https://mymth.github.io/vanillajs-datepicker/#/ -->
+                <div id="reservation-dates"> 
+                  <input required type="text" name="start">
+                  <span>to</span>
+                  <input required type="text" name="end">  
+                </div>
+              </div>
             </div>
-            <div class="col mb-3">
-              <label for="end_date" class="form-label">ending date</label>
-              <input type="date" class="form-control" id="end_date" name="end_date" aria-describedby="endDateHelp">
-              <div id="endDateHelp" class="form-text">Enter your ending date in the form of YYYY-MM-DD.</div>
-            </div>
-          </div>
+            <hr>
 
-        <button type="submit" class="btn btn-primary">Search Availability</button>
+            <button type="submit" class="btn btn-primary">Search Availability</button>
+          </form>
 
-        </form>
-
+        </div>
       </div>
+
+      <div class="row">
+        <div class="col">
+          <p id="myParagraph">This is some text.</p>
+          <p>
+            <button id="colorBouton" class="btn btn-outline-secondary">Click me !</button>
+          </p>
+        </div>
       </div>
     </div>
 
-    <div class="row my-footer">
+    <div class="row my-footer fixed-bottom" >
       <div class="col">
         left
       </div>
@@ -106,7 +111,126 @@
       </div>
     </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+
+<!--! Scripts section -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> <!--*popperJS min-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script> <!--*Bootstrap min-->
+<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.1/dist/js/datepicker-full.min.js"></script> <!--*vanillaJs DatePicker from a github link (https://mymth.github.io/vanillajs-datepicker/#/) -->
+<script src="https://unpkg.com/notie"></script> <!--*JS for notie package-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!--*Sweetalert package (https://sweetalert2.github.io/#download)-->
+
+
+<script>
+  
+  let attention = Prompt();
+
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+
+    //After clicking on the button, we got an alert specified inside the function
+    document.getElementById("colorBouton").addEventListener("click", function(){
+      attention.error({msg: "oops !"});
+    })
+
+    const elem = document.getElementById("reservation-dates");
+    const rangepicker = new DateRangePicker(elem, {
+      format:("dd-mm-yyyy"), //European way
+    }); 
+    
+    function notify(msg, msgType){
+      notie.alert({
+        type: msgType,
+        text: msg,
+        position: "top" // default : top
+      })
+    }
+
+    function notifyModal(title, text, icon, confirmationButtonText){
+      Swal.fire({
+        title: title,
+        html: text,
+        icon: icon,
+        confirmButtonText: confirmationButtonText,
+      })
+    }
+
+    //Prompt is amking an alert popping on the screen.
+    function Prompt(){
+      //Toast alert
+      let toast = function(c){ 
+        const{
+          msg = "",
+          icon = "success",
+          position = "top-end",
+        } = c;
+        const Toast = Swal.mixin({
+          toast: true,
+          title: msg,
+          position: position,
+          icon: icon,
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+          Toast.fire({})
+      }
+      //success alert
+      let success = function (c){
+        const{
+          msg = "",
+          title = "",
+          footer = "",
+        } =c;
+        Swal.fire({
+          icon: 'success',
+          title: title,
+          text: msg,
+          footer: footer,
+        })
+      }
+      //error alert
+      let error = function (c){
+        const{
+          msg = "",
+          title = "",
+          footer = "",
+        } =c;
+        Swal.fire({
+          icon: 'error',
+          title: title,
+          text: msg,
+          footer: footer,
+        })
+      }
+
+      return {
+        toast: toast,
+        success: success,
+        error: error,
+      }
+    }
+</script>
+  
+  
   </body>
 </html>

@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/optimus1508/bookings/pkg/config"
-	"github.com/optimus1508/bookings/pkg/handlers"
-	"github.com/optimus1508/bookings/pkg/render"
+	"github.com/optimus1508/bookings/internal/config"
+	"github.com/optimus1508/bookings/internal/handlers"
+	"github.com/optimus1508/bookings/internal/render"
 )
 
 const portNumber = ":8080"

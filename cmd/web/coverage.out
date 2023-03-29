@@ -1,0 +1,10 @@
+mode: set
+github.com/optimus1508/bookings/cmd/Web/main.go:23.13,25.16 2 0
+github.com/optimus1508/bookings/cmd/Web/main.go:25.16,27.3 1 0
+github.com/optimus1508/bookings/cmd/Web/main.go:29.2,37.16 4 0
+github.com/optimus1508/bookings/cmd/Web/main.go:40.18,56.16 10 1
+github.com/optimus1508/bookings/cmd/Web/main.go:56.16,59.3 2 0
+github.com/optimus1508/bookings/cmd/Web/main.go:61.2,68.12 6 1
+github.com/optimus1508/bookings/cmd/Web/middleware.go:10.45,20.2 3 1
+github.com/optimus1508/bookings/cmd/Web/middleware.go:23.50,25.2 1 1
+github.com/optimus1508/bookings/cmd/Web/routes.go:13.49,40.2 18 1

@@ -36,7 +36,7 @@ func testHandlers(t *testing.T) {
 			}
 
 			if resp.StatusCode != e.expectedStatusCode {
-				t.Error(fmt.Sprintf("for %s, expected %d but got %d", e.name, e.expectedStatusCode, resp.StatusCode))
+				t.Errorf(fmt.Sprintf("for %s, expected %d but got %d", e.name, e.expectedStatusCode, resp.StatusCode))
 			}
 		} else {
 

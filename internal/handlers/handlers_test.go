@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -35,7 +36,7 @@ func testHandlers(t *testing.T) {
 			}
 
 			if resp.StatusCode != e.expectedStatusCode {
-				t.Error("for %s, expected %d but got %d", e.name, e.expectedStatusCode, resp.StatusCode)
+				t.Error(fmt.Sprintf("for %s, expected %d but got %d", e.name, e.expectedStatusCode, resp.StatusCode))
 			}
 		} else {
 

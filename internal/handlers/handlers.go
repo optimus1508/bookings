@@ -7,10 +7,13 @@ import (
 	"net/http"
 
 	"github.com/optimus1508/bookings/internal/config"
+	"github.com/optimus1508/bookings/internal/driver"
 	"github.com/optimus1508/bookings/internal/forms"
 	"github.com/optimus1508/bookings/internal/helpers"
 	"github.com/optimus1508/bookings/internal/models"
 	"github.com/optimus1508/bookings/internal/render"
+	"github.com/optimus1508/bookings/internal/repository"
+	dbrepo "github.com/optimus1508/bookings/internal/repository/dbRepo"
 )
 
 // Repo the repository used by the handlers
@@ -19,12 +22,14 @@ var Repo *Repository
 // Repository is the repository type
 type Repository struct {
 	App *config.AppConfig
+	DB  repository.DatabaseRepo
 }
 
 // NewRepo creates a new repository
-func NewRepo(a *config.AppConfig) *Repository {
+func NewRepo(a *config.AppConfig, db *driver.DB) *Repository {
 	return &Repository{
 		App: a,
+		DB:  dbrepo.NewPostgresRepo(db.SQL, a),
 	}
 }
 

@@ -59,12 +59,21 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 		helpers.ServerError(w, errors.New("cannot get reservation from session"))
 		return
 	}
+
+	sd := res.StartDate.Format("02-01-2006")
+	ed := res.EndDate.Format("02-01-2006")
+
+	stringMap := make(map[string]string)
+	stringMap["start_date"] = sd
+	stringMap["end_date"] = ed
+
 	data := make(map[string]interface{})
 	data["reservation"] = res
 
 	render.Template(w, r, "make-reservation.page.tmpl", &models.TemplateData{
-		Form: forms.New(nil),
-		Data: data,
+		Form:      forms.New(nil),
+		Data:      data,
+		StringMap: stringMap,
 	})
 }
 

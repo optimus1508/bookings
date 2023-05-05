@@ -74,6 +74,8 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	sd := r.Form.Get("start_date")
 	ed := r.Form.Get("end_date")
 
+	log.Println("start, end", sd, ed)
+
 	// 2023-01-01 -- 01/02 03:04:05PM '06 -0700
 
 	layout := "2006-01-02"
@@ -164,10 +166,12 @@ func (m *Repository) Availability(w http.ResponseWriter, r *http.Request) {
 
 // postAvailability renders the search availability page
 func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
+	_ = r.ParseForm()
+
 	start := r.Form.Get("start")
 	end := r.Form.Get("end")
 
-	layout := "2006-01-02"
+	layout := "02-01-2006"
 	startDate, err := time.Parse(layout, start)
 	if err != nil {
 		helpers.ServerError(w, err)

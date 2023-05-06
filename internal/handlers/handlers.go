@@ -60,8 +60,16 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	room, err := m.DB.GetRoomByID(res.RoomID)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	res.Room.RoomName = room.RoomName
+
 	sd := res.StartDate.Format("02-01-2006")
-	ed := res.EndDate.Format("02-01-2006")
+	ed := res.StartDate.Format("02-01-2006")
 
 	stringMap := make(map[string]string)
 	stringMap["start_date"] = sd
@@ -79,6 +87,8 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 
 // PostReservation handles the posting of a reservation form
 func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+	_ = r.ParseForm()
+
 	err := r.ParseForm()
 	if err != nil {
 		helpers.ServerError(w, err)
@@ -92,9 +102,10 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 
 	// 2023-01-01 -- 01/02 03:04:05PM '06 -0700
 
-	layout := "2006-01-02"
+	layout := "02-01-2006"
 	startDate, err := time.Parse(layout, sd)
 	if err != nil {
+		log.Println(err)
 		helpers.ServerError(w, err)
 		return
 	}

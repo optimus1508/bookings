@@ -9,16 +9,20 @@
             <thead></thead>
             <tbody>
                 <tr>
-                    <td>Full name :</td>
+                    <td>Nom complet :</td>
                     <td>{{$res.FirstName}} {{$res.LastName}}</td>
                 </tr>
                 <tr>
+                    <td>Room</td>
+                    <td>{{$res.Room.RoomName}}</td>
+                </tr>
+                <tr>
                     <td>Arrivée :</td>
-                    <td></td>
+                    <td>{{index .StringMap "start_date"}}</td>
                 </tr>
                 <tr>
                     <td>Départ :</td>
-                    <td></td>
+                    <td>{{index .StringMap "end_date"}}</td>
                 </tr>
                 <tr>
                     <td>Email :</td>

@@ -224,12 +224,18 @@ func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 	ed := r.Form.Get("end")
 
 	layout := "02-01-2006"
-	startDate, _ := time.Parse(layout, sd)
+
+	log.Println("start, end", sd, ed)
+
+	startDate, err := time.Parse(layout, sd)
+	if err != nil {
+		helpers.ServerError(w, err)
+	}
 	endDate, _ := time.Parse(layout, ed)
 
 	roomID, _ := strconv.Atoi(r.Form.Get("room_id"))
 
-	available, _ := m.DB.SearchAvailabilityByDatesByRoomID(startDate, endDate, roomID)
+	available, err := m.DB.SearchAvailabilityByDatesByRoomID(startDate, endDate, roomID)
 	resp := jsonResponse{
 		OK:      available,
 		Message: "",

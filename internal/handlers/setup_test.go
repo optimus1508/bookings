@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"testing"
 	"text/template"
 	"time"
 
@@ -15,19 +16,16 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/justinas/nosurf"
 	"github.com/optimus1508/bookings/internal/config"
-	"github.com/optimus1508/bookings/internal/driver"
 	"github.com/optimus1508/bookings/internal/models"
 	"github.com/optimus1508/bookings/internal/render"
 )
 
 var app config.AppConfig
 var session *scs.SessionManager
-var pathToTemplates = "./../.../templates"
+var pathToTemplates = "./../../templates"
 var functions = template.FuncMap{}
 
-func GetRoutes() http.Handler {
-
-	// what am I going to put in the session
+func TestMain(m *testing.M) {
 	gob.Register(models.Reservation{})
 
 	// change this to true when in production
@@ -55,11 +53,14 @@ func GetRoutes() http.Handler {
 	app.TemplateCache = tc
 	app.UseCache = true
 
-	repo := NewRepo(&app, &driver.DB{})
+	repo := NewTestRepo(&app)
 	NewHandlers(repo)
-
 	render.NewRenderer(&app)
 
+	os.Exit(m.Run())
+}
+
+func getRoutes() http.Handler {
 	mux := chi.NewRouter()
 
 	mux.Use(middleware.Recoverer)
@@ -87,7 +88,7 @@ func GetRoutes() http.Handler {
 	return mux
 }
 
-// NoSurf adds CSRF protection to all post request
+// NoSurf adds CSRF protection to all POST requests
 func NoSurf(next http.Handler) http.Handler {
 	csrfHandler := nosurf.New(next)
 

@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/go-chi/chi/v5"
 	"github.com/optimus1508/bookings/internal/config"
 	"github.com/optimus1508/bookings/internal/driver"
 	"github.com/optimus1508/bookings/internal/forms"
@@ -616,4 +617,17 @@ func (m *Repository) AdminPostShowReservation(w http.ResponseWriter, r *http.Req
 // AdminReservationsCalendar displays the reservations calendar
 func (m *Repository) AdminReservationsCalendar(w http.ResponseWriter, r *http.Request) {
 	render.Template(w, r, "admin-reservations-calendar.page.tmpl", &models.TemplateData{})
+}
+
+// Marks a reservation as processed
+func (m *Repository) AdminProcessReservation(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	src := chi.URLParam(r, "src")
+	err := m.DB.UpdateProcessesForReservation(id, 1)
+	if err != nil {
+		log.Println(err)
+	}
+
+	m.App.Session.Put(r.Context(), "flash", "Reservation marked as processes")
+	http.Redirect(w, r, fmt.Sprintf("/admin/reservation-%s", src), http.StatusSeeOther)
 }
